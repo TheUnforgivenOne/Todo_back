@@ -5,7 +5,7 @@ import connectToMogo from './dataAccess';
 import requestLogger from './middlewares/requestLogger';
 import errorLogger from './middlewares/errorLogger';
 
-import todosRouter from './Todo/router';
+import todosRouter from './entities/Todo/router';
 
 // Inject dotenv configs
 dotenv.config({ path: '.env.local' });

@@ -1,17 +1,17 @@
-import TodosModel from './model';
+import TodosModel, { ITodo } from './model';
 
 class TodosService {
-  async getTodos(query) {
+  async getTodos(query: {}) {
     const data = await TodosModel.find(query);
     return data;
   }
 
-  async createTodo(todo) {
+  async createTodo(todo: ITodo) {
     const data = await TodosModel.create(todo);
     return data;
   }
 
-  async updateTodo(id, todo) {
+  async updateTodo(id: string, todo: ITodo) {
     if (!id) {
       throw new Error('No id provided');
     }
@@ -20,7 +20,7 @@ class TodosService {
     return data;
   }
 
-  async deleteTodo(id) {
+  async deleteTodo(id: string) {
     if (!id) {
       throw new Error('No id provided');
     }
