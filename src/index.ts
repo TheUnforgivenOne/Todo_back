@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
-import todosRouter from './Todo/router.js';
+import todosRouter from './Todo/router';
 
 dotenv.config({ path: '.env.local' });
 dotenv.config();

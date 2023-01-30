@@ -1,7 +1,7 @@
-import TodosService from './service.js';
+import TodosService from './service';
 
 class TodosController {
-  async getTodos(req, res) {
+  async get(req, res) {
     try {
       const todos = await TodosService.getTodos(req.query);
       res.json(todos);
@@ -10,7 +10,7 @@ class TodosController {
     }
   }
 
-  async createTodo(req, res) {
+  async create(req, res) {
     try {
       const newTodo = await TodosService.createTodo(req.body);
       res.json(newTodo);
@@ -19,7 +19,7 @@ class TodosController {
     }
   }
 
-  async updateTodo(req, res) {
+  async update(req, res) {
     try {
       const updatedTodo = await TodosService.updateTodo(
         req.params.id,
@@ -31,7 +31,7 @@ class TodosController {
     }
   }
 
-  async deleteTodo(req, res) {
+  async delete(req, res) {
     try {
       const deletedTodo = await TodosService.deleteTodo(req.params.id);
       res.json(deletedTodo);

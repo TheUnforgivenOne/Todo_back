@@ -1,4 +1,4 @@
-import TodosModel from './model.js';
+import TodosModel from './model';
 
 class TodosService {
   getTodos(query) {
