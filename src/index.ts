@@ -1,28 +1,36 @@
 import * as dotenv from 'dotenv';
-import express from 'express';
-import mongoose from 'mongoose';
+import express, { Express } from 'express';
+import connectToMogo from './dataAccess';
+
+import requestLogger from './middlewares/requestLogger';
+import errorLogger from './middlewares/errorLogger';
+
 import todosRouter from './Todo/router';
 
+// Inject dotenv configs
 dotenv.config({ path: '.env.local' });
 dotenv.config();
 
-const app = express();
+const app: Express = express();
 
+// Middlewares
 app.use(express.json());
+app.use(requestLogger);
+
+// Routers
 app.use(todosRouter);
 
-const start = async () => {
+// Errors
+app.use(errorLogger);
+
+(async () => {
   try {
-    await mongoose.connect(
-      `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.nj6djyg.mongodb.net/?retryWrites=true&w=majority`
-    );
+    await connectToMogo();
 
     app.listen(process.env.PORT, () =>
       console.log(`Server running on port ${process.env.PORT}`)
     );
-  } catch (e) {
-    throw e;
+  } catch (err) {
+    throw err;
   }
-};
-
-start();
+})();
