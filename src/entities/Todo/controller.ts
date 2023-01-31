@@ -14,9 +14,10 @@ class TodosController {
 
   @catchError
   async read(req: Request, res: Response) {
+    const id = req.params?.id;
     const query = req.query;
 
-    const todos = await TodosService.getTodos(query);
+    const todos = await TodosService.getTodos(id, query);
 
     res.json(todos);
   }

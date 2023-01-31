@@ -1,14 +1,16 @@
 import TodosModel, { ITodo } from './model';
 
 class TodosService {
-  async getTodos(query: {}) {
-    const data = await TodosModel.find(query);
-    return data;
+  async getTodos(id: string, query: {}) {
+    if (id) {
+      return await TodosModel.findById(id);
+    }
+
+    return await TodosModel.find(query);
   }
 
   async createTodo(todo: ITodo) {
-    const data = await TodosModel.create(todo);
-    return data;
+    return await TodosModel.create(todo);
   }
 
   async updateTodo(id: string, todo: ITodo) {
@@ -16,8 +18,7 @@ class TodosService {
       throw new Error('No id provided');
     }
 
-    const data = await TodosModel.findByIdAndUpdate(id, todo, { new: true });
-    return data;
+    return await TodosModel.findByIdAndUpdate(id, todo, { new: true });
   }
 
   async deleteTodo(id: string) {
@@ -25,8 +26,7 @@ class TodosService {
       throw new Error('No id provided');
     }
 
-    const data = await TodosModel.findByIdAndDelete(id);
-    return data;
+    return await TodosModel.findByIdAndDelete(id);
   }
 }
 
