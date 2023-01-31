@@ -3,13 +3,17 @@ import { Schema, model } from 'mongoose';
 export interface ITodo {
   title: string;
   completed: boolean;
-  date?: Date;
+  priority?: number;
+  description?: string;
+  dateCreated?: Date;
 }
 
 const Todo = new Schema<ITodo>({
   title: { type: String, required: true },
   completed: { type: Boolean, required: true },
-  date: { type: Date },
+  priority: { type: Number },
+  description: { type: String },
+  dateCreated: { type: Date },
 });
 
 export default model<ITodo>('Todo', Todo);

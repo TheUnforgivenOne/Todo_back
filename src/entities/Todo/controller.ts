@@ -9,7 +9,7 @@ class TodosController {
 
     const newTodo = await TodosService.createTodo(todo);
 
-    res.json(newTodo);
+    res.status(200).json({ newTodo });
   }
 
   @catchError
@@ -19,7 +19,7 @@ class TodosController {
 
     const todos = await TodosService.getTodos(id, query);
 
-    res.json(todos);
+    res.status(200).json({ todos });
   }
 
   @catchError
@@ -29,7 +29,7 @@ class TodosController {
 
     const updatedTodo = await TodosService.updateTodo(id, todo);
 
-    res.json(updatedTodo);
+    res.status(200).json({ updatedTodo });
   }
 
   @catchError
@@ -38,7 +38,7 @@ class TodosController {
 
     const deletedTodo = await TodosService.deleteTodo(id);
 
-    res.json(deletedTodo);
+    res.status(200).json({ deletedTodo });
   }
 }
 
