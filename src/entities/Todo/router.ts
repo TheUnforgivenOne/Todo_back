@@ -3,9 +3,9 @@ import TodosController from './controller';
 
 const todosRouter: Router = Router();
 
-todosRouter.post('/todos', TodosController.create);
-todosRouter.get(['/todos', '/todos/:id'], TodosController.read);
-todosRouter.put('/todos/:id', TodosController.update);
-todosRouter.delete('/todos/:id', TodosController.delete);
+todosRouter.post('/', TodosController.create);
+todosRouter.get(['/', '/:id'], TodosController.read);
+todosRouter.put('/:id', TodosController.update);
+todosRouter.delete('/:id', TodosController.delete);
 
 export default todosRouter;

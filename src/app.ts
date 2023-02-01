@@ -3,6 +3,7 @@ import express, { Express, json } from 'express';
 import requestsLogger from './middlewares/requestsLogger';
 import errorsLogger from './middlewares/errorsLogger';
 
+import dictionaryRouter from './entities/Dictionary/router';
 import todosRouter from './entities/Todo/router';
 import notFoundHandler from './middlewares/notFoundHandler';
 
@@ -14,7 +15,8 @@ const initalizeApp = () => {
   app.use(requestsLogger);
 
   // Routers
-  app.use(todosRouter);
+  app.use('/dictionary', dictionaryRouter)
+  app.use('/todos', todosRouter);
   app.use(notFoundHandler);
 
   // Errors
