@@ -36,13 +36,20 @@ const Todo: FC<ITodo> = ({ todo, fetchTodos }) => {
 
   return (
     <Styled.Container>
-      <span>{todo.priority}</span>
-      <input type="checkbox" checked={todo.completed} onChange={handleUpdate} />
+      <Styled.Checkbox
+        type="checkbox"
+        checked={todo.completed}
+        onChange={handleUpdate}
+      />
       <Styled.Main>
-        <b>{todo.title}</b>
+        <Styled.Title>
+          <b>{todo.title}</b>
+          {todo?.dateCreated?.split('T')[0]}
+        </Styled.Title>
+
         <span>{todo.description}</span>
       </Styled.Main>
-      <span>{todo?.dateCreated?.toLocaleString('en-US')}</span>
+      <Styled.Priority>Priority: {todo.priority}</Styled.Priority>
       <Styled.DeleteButton onClick={handleDelete}>x</Styled.DeleteButton>
     </Styled.Container>
   );

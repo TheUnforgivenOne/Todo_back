@@ -4,11 +4,13 @@ export const Form = styled.form`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 32px;
 `;
 
 export const Input = styled.input`
-  border-radius: 4px;
+  flex-grow: 1;
   border: 1px solid black;
+  border-radius: 4px;
   padding: 2px 8px;
 `;
 

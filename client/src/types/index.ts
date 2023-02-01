@@ -4,5 +4,5 @@ export interface TodoType {
   completed: boolean;
   priority: number | string;
   description?: string;
-  dateCreated?: Date;
+  dateCreated?: string;
 }
