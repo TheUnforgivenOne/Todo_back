@@ -6,3 +6,7 @@ export interface TodoType {
   description?: string;
   dateCreated?: string;
 }
+
+export interface PriorityDictType {
+  [key: string]: string;
+}

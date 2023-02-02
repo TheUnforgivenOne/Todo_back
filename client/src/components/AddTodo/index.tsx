@@ -1,15 +1,16 @@
 import React, { FC, useState } from 'react';
 
 import RequestsBuilder from '../../fetchUtils/RequestsBuilder';
-import { TodoType } from '../../types';
+import { PriorityDictType, TodoType } from '../../types';
 
 import * as Styled from './styles';
 
 interface IAddTodo {
+  priorityDict: PriorityDictType;
   fetchTodos: () => void;
 }
 
-const AddTodo: FC<IAddTodo> = ({ fetchTodos }) => {
+const AddTodo: FC<IAddTodo> = ({ priorityDict, fetchTodos }) => {
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [priority, setPriority] = useState<string>('2');
@@ -26,7 +27,7 @@ const AddTodo: FC<IAddTodo> = ({ fetchTodos }) => {
       dateCreated: now.toUTCString(),
     };
 
-    const data = await RequestsBuilder.post({
+    await RequestsBuilder.post({
       endpoint: '/todos',
       body: newTodo,
     });
@@ -35,8 +36,6 @@ const AddTodo: FC<IAddTodo> = ({ fetchTodos }) => {
     setDescription('');
     setPriority('2');
     fetchTodos();
-
-    console.log(data);
   };
 
   return (
@@ -58,11 +57,11 @@ const AddTodo: FC<IAddTodo> = ({ fetchTodos }) => {
           value={priority}
           onChange={(e) => setPriority(e.target.value)}
         >
-          <option value="0">0</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
+          {Object.entries(priorityDict).map(([key, value]) => (
+            <option key={key} value={key}>
+              {value}
+            </option>
+          ))}
         </select>
       </div>
       <Styled.AddButton type="submit">Add</Styled.AddButton>
