@@ -1,8 +1,8 @@
-import { DictionaryModel } from '../../dataAccess/index';
+import Repository from '../../Repository';
 
 class DictionaryService {
   async getDictionary(key?: string) {
-    const dictionary = await DictionaryModel.findOne();
+    const dictionary = await Repository.DictionaryModel.findOne();
 
     return key ? dictionary[key] : dictionary;
   }

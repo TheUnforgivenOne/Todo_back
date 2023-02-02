@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
 
-import connectToMongo from './src/dataAccess';
+import Repository from './src/Repository';
 
-import initialTodos from './src/dataAccess/__mocks__/initialTodos.json';
-import initialDictionaries from './src/dataAccess/__mocks__/initialDictionaries.json';
+import initialTodos from './src/Repository/__mocks__/initialTodos.json';
+import initialDictionaries from './src/Repository/__mocks__/initialDictionaries.json';
 
 const populateDb = async () => {
-  await connectToMongo();
+  await Repository.connectToMongo();
 
   const Dictionaries = mongoose.model('Dictionary');
   const Todo = mongoose.model('Todo');

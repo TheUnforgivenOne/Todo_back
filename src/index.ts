@@ -1,14 +1,10 @@
-import * as dotenv from 'dotenv';
+import Repository from './Repository';
 import initalizeApp from './app';
-import connectToMongo from './dataAccess';
-
-// Inject dotenv configs
-dotenv.config({ path: '.env.local' });
-dotenv.config();
 
 (async () => {
   try {
-    await connectToMongo();
+    await Repository.connectToMongo();
+
     initalizeApp();
   } catch (err) {
     throw err;

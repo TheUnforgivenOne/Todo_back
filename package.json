@@ -16,7 +16,7 @@
     "typescript": "^4.9.4"
   },
   "scripts": {
-    "populateDb": "nodemon populateDb.ts",
+    "populatedb": "nodemon populateDb.ts",
     "server": "nodemon src/index.ts",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
