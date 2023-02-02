@@ -1,0 +1,23 @@
+[
+  {
+    "title": "Todo1",
+    "completed": false,
+    "priority": 2,
+    "description": "Test todo",
+    "dateCreated": null
+  },
+  {
+    "title": "Todo2",
+    "completed": false,
+    "priority": 2,
+    "description": "Test todo",
+    "dateCreated": null
+  },
+  {
+    "title": "Todo3",
+    "completed": false,
+    "priority": 2,
+    "description": "Test todo",
+    "dateCreated": null
+  }
+]

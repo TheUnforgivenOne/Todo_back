@@ -1,4 +1,4 @@
-import DictionaryModel from './model';
+import { DictionaryModel } from '../../dataAccess/index';
 
 class DictionaryService {
   async getDictionary(key?: string) {
