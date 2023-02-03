@@ -1,4 +1,4 @@
-import connectToMongo from './dataAcess';
+import connectToMongo from './connectDB';
 import initalizeApp from './app';
 
 (async () => {

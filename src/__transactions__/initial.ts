@@ -1,11 +1,11 @@
 import mongoose, { Schema } from 'mongoose';
 
-import connectToMongo from '.';
+import connectToMongo from '../connectDB';
 
 import initialTodos from './__mocks__/initialTodos.json';
 import initialDictionaries from './__mocks__/initialDictionaries.json';
 
-const populateDb = async () => {
+(async () => {
   const connection = await connectToMongo();
   console.log('Connected to mongo');
 
@@ -25,10 +25,6 @@ const populateDb = async () => {
   await TodoModelMock.insertMany(initialTodos);
   console.log('Collections filled with defaults');
 
-  connection.disconnect();
+  await connection.disconnect();
   console.log('Disconnected from DB');
-};
-
-populateDb();
-
-export default {};
+})();
