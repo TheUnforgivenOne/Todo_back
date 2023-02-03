@@ -1,16 +1,16 @@
-import Repository, { ITodo } from '../../Repository';
+import TodoModel, { ITodo } from './model';
 
 class TodosService {
   async getTodos(id: string, query: {}) {
     if (id) {
-      return await Repository.TodoModel.findById(id);
+      return await TodoModel.findById(id);
     }
 
-    return await Repository.TodoModel.find(query);
+    return await TodoModel.find(query);
   }
 
   async createTodo(todo: ITodo) {
-    return await Repository.TodoModel.create(todo);
+    return await TodoModel.create(todo);
   }
 
   async updateTodo(id: string, todo: ITodo) {
@@ -18,7 +18,7 @@ class TodosService {
       throw new Error('No id provided');
     }
 
-    return await Repository.TodoModel.findByIdAndUpdate(id, todo, {
+    return await TodoModel.findByIdAndUpdate(id, todo, {
       new: true,
     });
   }
@@ -28,7 +28,7 @@ class TodosService {
       throw new Error('No id provided');
     }
 
-    return await Repository.TodoModel.findByIdAndDelete(id);
+    return await TodoModel.findByIdAndDelete(id);
   }
 }
 
