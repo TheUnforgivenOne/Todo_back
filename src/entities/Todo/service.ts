@@ -1,12 +1,23 @@
 import TodoModel, { ITodo } from './model';
 
 class TodosService {
-  async getTodos(id: string, query: {}) {
+  async getTodos(id: string, completed: boolean) {
     if (id) {
       return await TodoModel.findById(id);
     }
+    const filter = completed ? { completed } : {};
 
-    return await TodoModel.find(query);
+    const [todos, total, totalCompleted] = await Promise.all([
+      TodoModel.find(filter),
+      TodoModel.find({}).countDocuments(),
+      TodoModel.find({}).countDocuments({ completed: true }),
+    ]);
+
+    return {
+      todos,
+      total,
+      totalCompleted,
+    };
   }
 
   async createTodo(todo: ITodo) {

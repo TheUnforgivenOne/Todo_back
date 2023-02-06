@@ -3,7 +3,7 @@ import RequestsBuilder from '../../fetchUtils/RequestsBuilder';
 
 import { PriorityDictType, TodoType } from '../../types';
 
-import * as Styled from './styles';
+import * as S from './styles';
 
 interface ITodo {
   todo: TodoType;
@@ -32,24 +32,22 @@ const Todo: FC<ITodo> = ({ todo, priorityDict, fetchTodos }) => {
   };
 
   return (
-    <Styled.Container>
-      <Styled.Checkbox
+    <S.Container>
+      <S.Checkbox
         type="checkbox"
         checked={todo.completed}
         onChange={handleUpdate}
       />
-      <Styled.Main>
-        <Styled.Title>
+      <S.Main>
+        <S.Title>
           <b>{todo.title}</b>
           {todo?.dateCreated?.split('T')[0]}
-        </Styled.Title>
+        </S.Title>
         <span>{todo.description}</span>
-      </Styled.Main>
-      <Styled.Priority>
-        Priority: {priorityDict?.[todo.priority]}
-      </Styled.Priority>
-      <Styled.DeleteButton onClick={handleDelete}>x</Styled.DeleteButton>
-    </Styled.Container>
+      </S.Main>
+      <S.Priority>Priority: {priorityDict?.[todo.priority]}</S.Priority>
+      <S.DeleteButton onClick={handleDelete}>x</S.DeleteButton>
+    </S.Container>
   );
 };
 

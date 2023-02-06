@@ -1,10 +1,12 @@
 import { Request, Response } from 'express';
+import { ITodo } from './model';
+
 import TodosService from './service';
 import catchError from '../../decorators/catchError';
 
 class TodosController {
   @catchError
-  async create(req: Request, res: Response) {
+  async create(req: Request<ITodo>, res: Response) {
     const todo = req.body;
 
     const newTodo = await TodosService.createTodo(todo);
@@ -13,17 +15,20 @@ class TodosController {
   }
 
   @catchError
-  async read(req: Request, res: Response) {
+  async read(
+    req: Request<{ id?: string }, {}, {}, { completed: boolean }>,
+    res: Response
+  ) {
     const id = req.params?.id;
-    const query = req.query;
+    const completed = req.query.completed;
 
-    const todos = await TodosService.getTodos(id, query);
+    const todos = await TodosService.getTodos(id, completed);
 
-    res.status(200).json({ todos });
+    res.status(200).json(todos);
   }
 
   @catchError
-  async update(req: Request, res: Response) {
+  async update(req: Request<{ id?: string }, ITodo>, res: Response) {
     const id = req.params?.id;
     const todo = req.body;
 
@@ -33,7 +38,7 @@ class TodosController {
   }
 
   @catchError
-  async delete(req: Request, res: Response) {
+  async delete(req: Request<{ id?: string }>, res: Response) {
     const id = req.params?.id;
 
     const deletedTodo = await TodosService.deleteTodo(id);

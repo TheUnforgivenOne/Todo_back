@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import Todo from '../Todo';
 import { PriorityDictType, TodoType } from '../../types';
 
-import * as Styled from './styles';
+import * as S from './styles';
 
 interface ITodoList {
   todos: TodoType[];
@@ -13,7 +13,7 @@ interface ITodoList {
 
 const TodoList: FC<ITodoList> = ({ todos, priorityDict, fetchTodos }) => {
   return (
-    <Styled.List>
+    <S.List>
       {todos.map((todo) => (
         <Todo
           key={todo._id}
@@ -22,7 +22,7 @@ const TodoList: FC<ITodoList> = ({ todos, priorityDict, fetchTodos }) => {
           fetchTodos={fetchTodos}
         />
       ))}
-    </Styled.List>
+    </S.List>
   );
 };
 

@@ -3,7 +3,7 @@ import React, { FC, useState } from 'react';
 import RequestsBuilder from '../../fetchUtils/RequestsBuilder';
 import { PriorityDictType, TodoType } from '../../types';
 
-import * as Styled from './styles';
+import * as S from './styles';
 
 interface IAddTodo {
   priorityDict: PriorityDictType;
@@ -39,13 +39,13 @@ const AddTodo: FC<IAddTodo> = ({ priorityDict, fetchTodos }) => {
   };
 
   return (
-    <Styled.Form onSubmit={handleAddTodo}>
-      <Styled.Input
+    <S.Form onSubmit={handleAddTodo}>
+      <S.Input
         value={title}
         placeholder="Title"
         onChange={(e) => setTitle(e.target.value)}
       />
-      <Styled.Input
+      <S.Input
         value={description}
         placeholder="Description"
         onChange={(e) => setDescription(e.target.value)}
@@ -64,8 +64,8 @@ const AddTodo: FC<IAddTodo> = ({ priorityDict, fetchTodos }) => {
           ))}
         </select>
       </div>
-      <Styled.AddButton type="submit">Add</Styled.AddButton>
-    </Styled.Form>
+      <S.AddButton type="submit">Add</S.AddButton>
+    </S.Form>
   );
 };
 
