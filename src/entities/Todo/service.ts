@@ -1,3 +1,4 @@
+import mongoose, { Schema } from 'mongoose';
 import TodoModel, { ITodo } from './model';
 
 class TodosService {
@@ -21,7 +22,11 @@ class TodosService {
   }
 
   async createTodo(todo: ITodo) {
-    return await TodoModel.create(todo);
+    return await TodoModel.create({
+      ...todo,
+      _id: new mongoose.Types.ObjectId(),
+      dateCreated: new Date(),
+    });
   }
 
   async updateTodo(id: string, todo: ITodo) {

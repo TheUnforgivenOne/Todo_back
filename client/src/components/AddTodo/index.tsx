@@ -18,13 +18,11 @@ const AddTodo: FC<IAddTodo> = ({ priorityDict, fetchTodos }) => {
   const handleAddTodo = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const now = new Date();
     const newTodo: Omit<TodoType, '_id'> = {
       title,
       description,
       priority,
       completed: false,
-      dateCreated: now.toUTCString(),
     };
 
     await RequestsBuilder.post({

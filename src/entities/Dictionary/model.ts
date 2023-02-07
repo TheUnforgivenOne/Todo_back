@@ -1,7 +1,11 @@
 import { Schema, model } from 'mongoose';
 
+interface IPriorities {
+  [key: string]: string;
+}
+
 interface IDictionary {
-  priority: { [key: string]: string };
+  priority: IPriorities;
 }
 
 const DictionarySchema = new Schema<IDictionary>({
