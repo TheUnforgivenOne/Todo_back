@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 
 import AddTodo from '../AddTodo';
 import Filters from '../Filters';
+import Auth from '../Auth';
 import TodoList from '../TodoList';
 
 import RequestsBuilder from '../../fetchUtils/RequestsBuilder';
@@ -49,12 +50,15 @@ const Todos: FC = () => {
     <S.Container>
       <S.Title>Todos App</S.Title>
       <AddTodo priorityDict={priorityDict} fetchTodos={fetchTodos} />
-      <Filters
-        total={data.total}
-        totalCompleted={data.totalCompleted}
-        filter={filter}
-        setFilter={setFilter}
-      />
+      <S.Utils>
+        <Filters
+          total={data.total}
+          totalCompleted={data.totalCompleted}
+          filter={filter}
+          setFilter={setFilter}
+        />
+        <Auth />
+      </S.Utils>
       <TodoList
         todos={data.todos}
         priorityDict={priorityDict}

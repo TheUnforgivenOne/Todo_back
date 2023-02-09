@@ -12,3 +12,9 @@ export const Container = styled.div`
 export const Title = styled.h2`
   margin: 0 0 16px;
 `;
+
+export const Utils = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+`;
