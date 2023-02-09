@@ -5,6 +5,7 @@ import errorsLogger from './middlewares/errorsLogger';
 
 import dictionaryRouter from './entities/Dictionary/router';
 import todosRouter from './entities/Todo/router';
+import userRouter from './entities/User/router';
 import notFoundHandler from './middlewares/notFoundHandler';
 
 const initalizeApp = () => {
@@ -17,6 +18,7 @@ const initalizeApp = () => {
   // Routers
   app.use('/dictionary', dictionaryRouter)
   app.use('/todos', todosRouter);
+  app.use(userRouter);
   app.use(notFoundHandler);
 
   // Errors

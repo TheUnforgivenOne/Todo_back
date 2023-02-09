@@ -1,4 +1,4 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose from 'mongoose';
 import TodoModel, { ITodo } from './model';
 
 class TodosService {
