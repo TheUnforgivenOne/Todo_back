@@ -20,9 +20,9 @@ class TodosController {
     res: Response
   ) {
     const id = req.params?.id;
-    const completed = req.query.completed;
+    const query = req.query;
 
-    const todos = await TodosService.getTodos(id, completed);
+    const todos = await TodosService.getTodos(id, query);
 
     res.status(200).json(todos);
   }

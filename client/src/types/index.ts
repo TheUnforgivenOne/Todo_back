@@ -10,3 +10,6 @@ export interface TodoType {
 export interface PriorityDictType {
   [key: string]: string;
 }
+
+type setStateFnParams<T> = (oldValue: T) => T;
+export type setStateFnType<T> = (newValue: T | setStateFnParams<T>) => void;

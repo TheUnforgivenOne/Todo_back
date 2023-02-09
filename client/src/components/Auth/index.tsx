@@ -1,11 +1,14 @@
 import React, { FC, useEffect, useState } from 'react';
 import RequestsBuilder from '../../fetchUtils/RequestsBuilder';
+import { setStateFnType } from '../../types';
 import * as S from './styles';
 
-const Auth: FC = () => {
-  const [currentUser, setCurrentUser] = useState<string | null>(
-    localStorage.getItem('user')
-  );
+interface IAuth {
+  currentUser: string | null;
+  setCurrentUser: setStateFnType<string | null>;
+}
+
+const Auth: FC<IAuth> = ({ currentUser, setCurrentUser }) => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
@@ -15,7 +18,6 @@ const Auth: FC = () => {
     } else {
       localStorage.removeItem('user');
     }
-    console.log(currentUser);
   }, [currentUser]);
 
   const resetForm = () => {

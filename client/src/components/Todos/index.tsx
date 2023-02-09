@@ -11,7 +11,11 @@ import { PriorityDictType, TodoType } from '../../types';
 import * as S from './styles';
 
 const Todos: FC = () => {
+  const [currentUser, setCurrentUser] = useState<string | null>(
+    localStorage.getItem('user')
+  );
   const [filter, setFilter] = useState<boolean | null>(null);
+  const [onlyMy, setOnlyMy] = useState<boolean>(false);
   const [priorityDict, setPriorityDict] = useState<PriorityDictType>({});
   const [data, setData] = useState<{
     todos: TodoType[];
@@ -26,7 +30,11 @@ const Todos: FC = () => {
   const fetchTodos = async () => {
     const data = await RequestsBuilder.get({
       endpoint: '/todos',
-      query: filter !== null ? { completed: filter } : {},
+      query: {
+        ...(filter !== null ? { completed: filter } : {}),
+        onlyMy,
+        currentUser,
+      },
     });
     setData(data);
   };
@@ -40,7 +48,7 @@ const Todos: FC = () => {
 
   useEffect(() => {
     fetchTodos();
-  }, [filter]);
+  }, [filter, onlyMy]);
 
   useEffect(() => {
     fetchPriority();
@@ -54,10 +62,13 @@ const Todos: FC = () => {
         <Filters
           total={data.total}
           totalCompleted={data.totalCompleted}
+          currentUser={currentUser}
+          onlyMy={onlyMy}
           filter={filter}
+          setOnlyMy={setOnlyMy}
           setFilter={setFilter}
         />
-        <Auth />
+        <Auth currentUser={currentUser} setCurrentUser={setCurrentUser} />
       </S.Utils>
       <TodoList
         todos={data.todos}

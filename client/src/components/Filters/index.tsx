@@ -1,17 +1,24 @@
 import React, { FC } from 'react';
+import { setStateFnType } from '../../types';
 import * as S from './styles';
 
 interface IFilters {
   total: number;
   totalCompleted: number;
+  currentUser: string | null;
+  onlyMy: boolean;
   filter: boolean | null;
-  setFilter: (type: boolean | null) => void;
+  setOnlyMy: setStateFnType<boolean>;
+  setFilter: setStateFnType<boolean | null>;
 }
 
 const Filters: FC<IFilters> = ({
   total,
   totalCompleted,
+  currentUser,
+  onlyMy,
   filter,
+  setOnlyMy,
   setFilter,
 }) => {
   return (
@@ -28,6 +35,14 @@ const Filters: FC<IFilters> = ({
       <S.FilterItem selected={filter === true} onClick={() => setFilter(true)}>
         Completed ({totalCompleted})
       </S.FilterItem>
+      {currentUser && (
+        <S.FilterItem
+          selected={onlyMy}
+          onClick={() => setOnlyMy((prev) => !prev)}
+        >
+          Only my
+        </S.FilterItem>
+      )}
     </S.Container>
   );
 };

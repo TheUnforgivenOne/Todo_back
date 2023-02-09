@@ -2,11 +2,13 @@ import mongoose from 'mongoose';
 import TodoModel, { ITodo } from './model';
 
 class TodosService {
-  async getTodos(id: string, completed: boolean) {
+  async getTodos(id: string, query: any) {
     if (id) {
       return await TodoModel.findById(id);
     }
-    const filter = completed ? { completed } : {};
+
+    const filter = {};
+    query?.completed ?? Object.assign(filter, { completed: query.completed });
 
     const [todos, total, totalCompleted] = await Promise.all([
       TodoModel.find(filter),
