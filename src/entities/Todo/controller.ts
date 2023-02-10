@@ -7,9 +7,9 @@ import catchError from '../../decorators/catchError';
 class TodosController {
   @catchError
   async create(req: Request<ITodo>, res: Response) {
-    const todo = req.body;
+    const { currentUser, todo } = req.body;
 
-    const newTodo = await TodosService.createTodo(todo);
+    const newTodo = await TodosService.createTodo(currentUser, todo);
 
     res.status(200).json({ newTodo });
   }

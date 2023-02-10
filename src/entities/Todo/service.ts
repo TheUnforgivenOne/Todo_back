@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import UserModel from '../User/model';
 import TodoModel, { ITodo } from './model';
 
 class TodosService {
@@ -8,10 +8,13 @@ class TodosService {
     }
 
     const filter = {};
-    query?.completed ?? Object.assign(filter, { completed: query.completed });
+    query?.completed && Object.assign(filter, { completed: query.completed });
 
     const [todos, total, totalCompleted] = await Promise.all([
-      TodoModel.find(filter),
+      TodoModel.find(filter).populate({
+        path: 'author',
+        // match: { username: 'third' },
+      }),
       TodoModel.find({}).countDocuments(),
       TodoModel.find({}).countDocuments({ completed: true }),
     ]);
@@ -23,11 +26,16 @@ class TodosService {
     };
   }
 
-  async createTodo(todo: ITodo) {
+  async createTodo(currentUser: string | null, todo: ITodo) {
+    let userId = null;
+    if (currentUser) {
+      userId = await UserModel.findOne({ username: currentUser });
+    }
+
     return await TodoModel.create({
       ...todo,
-      _id: new mongoose.Types.ObjectId(),
       dateCreated: new Date(),
+      author: userId,
     });
   }
 

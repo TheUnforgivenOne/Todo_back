@@ -57,7 +57,11 @@ const Todos: FC = () => {
   return (
     <S.Container>
       <S.Title>Todos App</S.Title>
-      <AddTodo priorityDict={priorityDict} fetchTodos={fetchTodos} />
+      <AddTodo
+        currentUser={currentUser}
+        priorityDict={priorityDict}
+        fetchTodos={fetchTodos}
+      />
       <S.Utils>
         <Filters
           total={data.total}

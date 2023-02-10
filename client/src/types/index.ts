@@ -5,6 +5,9 @@ export interface TodoType {
   priority: number | string;
   description?: string;
   dateCreated?: string;
+  author?: {
+    username: string;
+  };
 }
 
 export interface PriorityDictType {

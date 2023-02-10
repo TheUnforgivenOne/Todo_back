@@ -6,11 +6,12 @@ import { PriorityDictType, TodoType } from '../../types';
 import * as S from './styles';
 
 interface IAddTodo {
+  currentUser: string | null;
   priorityDict: PriorityDictType;
   fetchTodos: () => void;
 }
 
-const AddTodo: FC<IAddTodo> = ({ priorityDict, fetchTodos }) => {
+const AddTodo: FC<IAddTodo> = ({ currentUser, priorityDict, fetchTodos }) => {
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [priority, setPriority] = useState<string>('2');
@@ -18,7 +19,7 @@ const AddTodo: FC<IAddTodo> = ({ priorityDict, fetchTodos }) => {
   const handleAddTodo = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const newTodo: Omit<TodoType, '_id'> = {
+    const todo: Omit<TodoType, '_id'> = {
       title,
       description,
       priority,
@@ -27,7 +28,10 @@ const AddTodo: FC<IAddTodo> = ({ priorityDict, fetchTodos }) => {
 
     await RequestsBuilder.post({
       endpoint: '/todos',
-      body: newTodo,
+      body: {
+        todo,
+        currentUser,
+      },
     });
 
     setTitle('');
