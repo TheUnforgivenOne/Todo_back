@@ -2,13 +2,10 @@ import UserModel from '../User/model';
 import TodoModel, { ITodo } from './model';
 
 class TodosService {
-  async getTodos(id: string, query: any, token?: string) {
-    if (id) {
-      return await TodoModel.findById(id);
-    }
-
+  async getTodos(query: any, token?: string) {
     const filter = {};
-    query?.completed && Object.assign(filter, { completed: query.completed });
+    query.completed !== 'null' &&
+      Object.assign(filter, { completed: query.completed });
 
     if (token && query.onlyMy === 'true') {
       const username = token.split(':')[0];
@@ -31,16 +28,16 @@ class TodosService {
   }
 
   async createTodo(todo: ITodo, token: string) {
-    let userId = null;
+    let user = null;
     if (token) {
       const username = token.split(':')[0];
-      userId = await UserModel.findOne({ username });
+      user = await UserModel.findOne({ username });
     }
 
     return await TodoModel.create({
       ...todo,
       dateCreated: new Date(),
-      author: userId,
+      author: user,
     });
   }
 

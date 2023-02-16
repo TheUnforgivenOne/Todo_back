@@ -1,45 +1,50 @@
 import React, { FC } from 'react';
-import { setStateFnType } from '../../types';
+import { FiltersType, setStateFnType } from '../../types';
 import * as S from './styles';
 
 interface IFilters {
   currentUser?: string;
   total: number;
   totalCompleted: number;
-  onlyMy: boolean;
-  filter: boolean | null;
-  setOnlyMy: setStateFnType<boolean>;
-  setFilter: setStateFnType<boolean | null>;
+  filter: FiltersType;
+  setFilter: setStateFnType<FiltersType>;
 }
 
 const Filters: FC<IFilters> = ({
   currentUser,
   total,
   totalCompleted,
-  onlyMy,
   filter,
-  setOnlyMy,
   setFilter,
 }) => {
-  console.log(currentUser);
+  const changeFilter = (key: string, value: boolean | null) => {
+    setFilter((prev) => ({ ...prev, [key]: value }));
+  };
+
   return (
     <S.Container>
-      <S.FilterItem selected={filter === null} onClick={() => setFilter(null)}>
+      <S.FilterItem
+        selected={filter.completed === null}
+        onClick={() => changeFilter('completed', null)}
+      >
         All ({total})
       </S.FilterItem>
       <S.FilterItem
-        selected={filter === false}
-        onClick={() => setFilter(false)}
+        selected={filter.completed === false}
+        onClick={() => changeFilter('completed', false)}
       >
         Uncompleted ({total - totalCompleted})
       </S.FilterItem>
-      <S.FilterItem selected={filter === true} onClick={() => setFilter(true)}>
+      <S.FilterItem
+        selected={filter.completed === true}
+        onClick={() => changeFilter('completed', true)}
+      >
         Completed ({totalCompleted})
       </S.FilterItem>
       {currentUser && (
         <S.FilterItem
-          selected={onlyMy}
-          onClick={() => setOnlyMy((prev) => !prev)}
+          selected={filter.onlyMy}
+          onClick={() => changeFilter('onlyMy', !filter.onlyMy)}
         >
           Only my
         </S.FilterItem>

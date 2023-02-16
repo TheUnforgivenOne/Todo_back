@@ -7,14 +7,16 @@ import TodoList from '../TodoList';
 
 import useCookie from '../../utils/useCookie';
 import RequestsBuilder from '../../utils/RequestsBuilder';
-import { PriorityDictType, TodoType } from '../../types';
+import { FiltersType, PriorityDictType, TodoType } from '../../types';
 
 import * as S from './styles';
 
 const Todos: FC = () => {
   const { currentUser } = useCookie();
-  const [filter, setFilter] = useState<boolean | null>(null);
-  const [onlyMy, setOnlyMy] = useState<boolean>(false);
+  const [filter, setFilter] = useState<FiltersType>({
+    completed: null,
+    onlyMy: false,
+  });
   const [priorityDict, setPriorityDict] = useState<PriorityDictType>({});
   const [data, setData] = useState<{
     todos: TodoType[];
@@ -29,10 +31,7 @@ const Todos: FC = () => {
   const fetchTodos = async () => {
     const data = await RequestsBuilder.get({
       endpoint: '/todos',
-      query: {
-        ...(filter !== null ? { completed: filter } : {}),
-        onlyMy,
-      },
+      query: filter,
     });
     setData(data);
   };
@@ -45,12 +44,13 @@ const Todos: FC = () => {
   };
 
   useEffect(() => {
-    fetchTodos();
-  }, [filter, onlyMy]);
-
-  useEffect(() => {
     fetchPriority();
   }, []);
+
+  useEffect(() => {
+    fetchTodos();
+  }, [filter]);
+
 
   return (
     <S.Container>
@@ -61,9 +61,7 @@ const Todos: FC = () => {
           currentUser={currentUser}
           total={data.total}
           totalCompleted={data.totalCompleted}
-          onlyMy={onlyMy}
           filter={filter}
-          setOnlyMy={setOnlyMy}
           setFilter={setFilter}
         />
         <Auth currentUser={currentUser} />
