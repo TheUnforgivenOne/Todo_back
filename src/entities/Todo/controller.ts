@@ -7,9 +7,10 @@ import catchError from '../../decorators/catchError';
 class TodosController {
   @catchError
   async create(req: Request<ITodo>, res: Response) {
-    const { currentUser, todo } = req.body;
+    const { todo } = req.body;
+    const token = req.cookies?.token;
 
-    const newTodo = await TodosService.createTodo(currentUser, todo);
+    const newTodo = await TodosService.createTodo(todo, token);
 
     res.status(200).json({ newTodo });
   }
@@ -21,8 +22,9 @@ class TodosController {
   ) {
     const id = req.params?.id;
     const query = req.query;
+    const token = req.cookies?.token;
 
-    const todos = await TodosService.getTodos(id, query);
+    const todos = await TodosService.getTodos(id, query, token);
 
     res.status(200).json(todos);
   }

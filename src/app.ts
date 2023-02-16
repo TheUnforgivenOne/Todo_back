@@ -1,5 +1,6 @@
 import express, { Express, json } from 'express';
 
+import cookieParser from 'cookie-parser';
 import requestsLogger from './middlewares/requestsLogger';
 import errorsLogger from './middlewares/errorsLogger';
 
@@ -12,8 +13,7 @@ const initalizeApp = () => {
   const app: Express = express();
 
   // Middlewares
-  app.use(json());
-  app.use(requestsLogger);
+  app.use(json(), cookieParser(), requestsLogger);
 
   // Routers
   app.use('/dictionary', dictionaryRouter)

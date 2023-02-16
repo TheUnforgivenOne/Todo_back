@@ -14,7 +14,6 @@ class UserService {
     const data = await UserModel.create({
       ...creds,
       password: hashedPassword,
-      isLogged: false,
     });
 
     return data;
@@ -32,23 +31,20 @@ class UserService {
       throw new Error('Wrong password');
     }
 
-    user.isLogged = true;
-    await user.save();
-
-    return { username: user.username, isLogged: user.isLogged };
+    const token = `${user.username}:${hashedPassword}`;
+    return { logged: true, token };
   }
 
-  async logoutUser({ username }: { username: string }) {
+  async logoutUser(token: string) {
+    const username = token.split(':')[0];
+
     const user = await UserModel.findOne({ username });
 
     if (!user) {
       throw new Error('No user with such name');
     }
 
-    user.isLogged = false;
-    await user.save();
-
-    return { isLogged: user.isLogged };
+    return { logged: false };
   }
 }
 

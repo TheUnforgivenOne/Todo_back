@@ -19,15 +19,17 @@ class UserController {
 
     const data = await UserService.loginUser(user);
 
+    res.cookie('token', data.token);
     res.status(200).json(data);
   }
 
   @catchError
-  async logout(req: Request<{ username: string }>, res: Response) {
-    const username = req.body.username;
+  async logout(req: Request, res: Response) {
+    const token = req.cookies?.token;
 
-    const data = await UserService.logoutUser({ username });
+    const data = await UserService.logoutUser(token);
 
+    res.clearCookie('token');
     res.status(200).json(data);
   }
 }

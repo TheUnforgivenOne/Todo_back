@@ -1,24 +1,14 @@
-import React, { FC, useEffect, useState } from 'react';
-import RequestsBuilder from '../../fetchUtils/RequestsBuilder';
-import { setStateFnType } from '../../types';
+import React, { FC, useState } from 'react';
+import RequestsBuilder from '../../utils/RequestsBuilder';
 import * as S from './styles';
 
 interface IAuth {
-  currentUser: string | null;
-  setCurrentUser: setStateFnType<string | null>;
+  currentUser?: string;
 }
 
-const Auth: FC<IAuth> = ({ currentUser, setCurrentUser }) => {
+const Auth: FC<IAuth> = ({ currentUser }) => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-
-  useEffect(() => {
-    if (currentUser) {
-      localStorage.setItem('user', currentUser);
-    } else {
-      localStorage.removeItem('user');
-    }
-  }, [currentUser]);
 
   const resetForm = () => {
     setUsername('');
@@ -26,16 +16,12 @@ const Auth: FC<IAuth> = ({ currentUser, setCurrentUser }) => {
   };
 
   const signIn = async () => {
-    const user = await RequestsBuilder.post({
+    await RequestsBuilder.post({
       endpoint: '/login',
       body: { username, password },
     });
 
     resetForm();
-
-    if (user.isLogged) {
-      setCurrentUser(user.username);
-    }
   };
 
   const signUp = async () => {
@@ -48,16 +34,9 @@ const Auth: FC<IAuth> = ({ currentUser, setCurrentUser }) => {
   };
 
   const logout = async () => {
-    const user = await RequestsBuilder.post({
+    await RequestsBuilder.post({
       endpoint: '/logout',
-      body: {
-        username: currentUser,
-      },
     });
-
-    if (!user.isLogged) {
-      setCurrentUser(null);
-    }
   };
 
   return (

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import RequestsBuilder from '../../fetchUtils/RequestsBuilder';
+import RequestsBuilder from '../../utils/RequestsBuilder';
 
 import { PriorityDictType, TodoType } from '../../types';
 
@@ -41,8 +41,8 @@ const Todo: FC<ITodo> = ({ todo, priorityDict, fetchTodos }) => {
       <S.Main>
         <S.Title>
           <b>{todo.title}</b>
-          <span>Date created: {todo?.dateCreated?.split('T')[0]}</span>
-          <span>Author: {todo?.author?.username}</span>
+          <span>Date created: {todo?.dateCreated?.split('T')[0] || '-'}</span>
+          <span>Author: {todo?.author?.username || '-'}</span>
         </S.Title>
         <span>{todo.description}</span>
       </S.Main>

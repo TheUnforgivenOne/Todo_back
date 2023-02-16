@@ -1,17 +1,16 @@
 import React, { FC, useState } from 'react';
 
-import RequestsBuilder from '../../fetchUtils/RequestsBuilder';
+import RequestsBuilder from '../../utils/RequestsBuilder';
 import { PriorityDictType, TodoType } from '../../types';
 
 import * as S from './styles';
 
 interface IAddTodo {
-  currentUser: string | null;
   priorityDict: PriorityDictType;
   fetchTodos: () => void;
 }
 
-const AddTodo: FC<IAddTodo> = ({ currentUser, priorityDict, fetchTodos }) => {
+const AddTodo: FC<IAddTodo> = ({ priorityDict, fetchTodos }) => {
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [priority, setPriority] = useState<string>('2');
@@ -28,10 +27,7 @@ const AddTodo: FC<IAddTodo> = ({ currentUser, priorityDict, fetchTodos }) => {
 
     await RequestsBuilder.post({
       endpoint: '/todos',
-      body: {
-        todo,
-        currentUser,
-      },
+      body: { todo },
     });
 
     setTitle('');

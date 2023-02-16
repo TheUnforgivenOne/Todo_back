@@ -5,15 +5,14 @@ import Filters from '../Filters';
 import Auth from '../Auth';
 import TodoList from '../TodoList';
 
-import RequestsBuilder from '../../fetchUtils/RequestsBuilder';
+import useCookie from '../../utils/useCookie';
+import RequestsBuilder from '../../utils/RequestsBuilder';
 import { PriorityDictType, TodoType } from '../../types';
 
 import * as S from './styles';
 
 const Todos: FC = () => {
-  const [currentUser, setCurrentUser] = useState<string | null>(
-    localStorage.getItem('user')
-  );
+  const { currentUser } = useCookie();
   const [filter, setFilter] = useState<boolean | null>(null);
   const [onlyMy, setOnlyMy] = useState<boolean>(false);
   const [priorityDict, setPriorityDict] = useState<PriorityDictType>({});
@@ -33,7 +32,6 @@ const Todos: FC = () => {
       query: {
         ...(filter !== null ? { completed: filter } : {}),
         onlyMy,
-        currentUser,
       },
     });
     setData(data);
@@ -57,22 +55,18 @@ const Todos: FC = () => {
   return (
     <S.Container>
       <S.Title>Todos App</S.Title>
-      <AddTodo
-        currentUser={currentUser}
-        priorityDict={priorityDict}
-        fetchTodos={fetchTodos}
-      />
+      <AddTodo priorityDict={priorityDict} fetchTodos={fetchTodos} />
       <S.Utils>
         <Filters
+          currentUser={currentUser}
           total={data.total}
           totalCompleted={data.totalCompleted}
-          currentUser={currentUser}
           onlyMy={onlyMy}
           filter={filter}
           setOnlyMy={setOnlyMy}
           setFilter={setFilter}
         />
-        <Auth currentUser={currentUser} setCurrentUser={setCurrentUser} />
+        <Auth currentUser={currentUser} />
       </S.Utils>
       <TodoList
         todos={data.todos}

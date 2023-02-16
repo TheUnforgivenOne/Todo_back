@@ -2,7 +2,7 @@ import UserModel from '../User/model';
 import TodoModel, { ITodo } from './model';
 
 class TodosService {
-  async getTodos(id: string, query: any) {
+  async getTodos(id: string, query: any, token?: string) {
     if (id) {
       return await TodoModel.findById(id);
     }
@@ -10,8 +10,10 @@ class TodosService {
     const filter = {};
     query?.completed && Object.assign(filter, { completed: query.completed });
 
-    if (query.currentUser && query.onlyMy === 'true') {
-      const user = await UserModel.findOne({ username: query.currentUser });
+    if (token && query.onlyMy === 'true') {
+      const username = token.split(':')[0];
+      const user = await UserModel.findOne({ username });
+
       Object.assign(filter, { author: user._id });
     }
 
@@ -28,10 +30,11 @@ class TodosService {
     };
   }
 
-  async createTodo(currentUser: string | null, todo: ITodo) {
+  async createTodo(todo: ITodo, token: string) {
     let userId = null;
-    if (currentUser) {
-      userId = await UserModel.findOne({ username: currentUser });
+    if (token) {
+      const username = token.split(':')[0];
+      userId = await UserModel.findOne({ username });
     }
 
     return await TodoModel.create({

@@ -3,9 +3,9 @@ import { setStateFnType } from '../../types';
 import * as S from './styles';
 
 interface IFilters {
+  currentUser?: string;
   total: number;
   totalCompleted: number;
-  currentUser: string | null;
   onlyMy: boolean;
   filter: boolean | null;
   setOnlyMy: setStateFnType<boolean>;
@@ -13,14 +13,15 @@ interface IFilters {
 }
 
 const Filters: FC<IFilters> = ({
+  currentUser,
   total,
   totalCompleted,
-  currentUser,
   onlyMy,
   filter,
   setOnlyMy,
   setFilter,
 }) => {
+  console.log(currentUser);
   return (
     <S.Container>
       <S.FilterItem selected={filter === null} onClick={() => setFilter(null)}>
