@@ -10,11 +10,13 @@ class TodosService {
     const filter = {};
     query?.completed && Object.assign(filter, { completed: query.completed });
 
+    if (query.currentUser && query.onlyMy === 'true') {
+      const user = await UserModel.findOne({ username: query.currentUser });
+      Object.assign(filter, { author: user._id });
+    }
+
     const [todos, total, totalCompleted] = await Promise.all([
-      TodoModel.find(filter).populate({
-        path: 'author',
-        // match: { username: 'third' },
-      }),
+      TodoModel.find(filter).populate({ path: 'author' }),
       TodoModel.find({}).countDocuments(),
       TodoModel.find({}).countDocuments({ completed: true }),
     ]);
