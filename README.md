@@ -19,6 +19,6 @@ Simple Todos app
 2. ```npm run initial```
 3. ```npm run server```
 
-Fill mongo DB_USER and DB_PASSWORD in .env.local
+Fill DB_CONNECTION string inside .env.local
 
 Run both client and server ```npm run dev```
