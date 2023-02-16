@@ -2,7 +2,7 @@
 Simple Todos app
 
 ## Features
-1. Authentification
+1. Cookie authentification
 2. REST API
 3. Functional UI
 4. Attempt to build layered backend architecture
