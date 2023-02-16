@@ -6,7 +6,7 @@ dotenv.config({ path: '.env.local' });
 dotenv.config();
 
 const connectToMongo = async () => {
-  const connectionString: string = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.nj6djyg.mongodb.net/?retryWrites=true&w=majority`;
+  const connectionString: string = process.env.DB_CONNECTION;
 
   mongoose.set('strictQuery', false);
 
