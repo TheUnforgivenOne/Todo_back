@@ -12,15 +12,15 @@ Simple Todos app
 2. MongoDB
 3. React
 
-## Client
-1. ```cd client```
-2. ```npm install```
-
 ## Server
 1. ```npm install```
 2. ```npm run initial```
 3. ```npm run server```
 
 Fill DB_CONNECTION string inside .env.local
+
+## Client
+1. ```cd client```
+2. ```npm install```
 
 Run both client and server ```npm run dev```
