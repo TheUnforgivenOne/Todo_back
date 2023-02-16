@@ -5,7 +5,7 @@ Simple Todos app
 1. Authentification
 2. REST API
 3. Functional UI
-4. Attempt to build backend architecture
+4. Attempt to build layered backend architecture
 
 ## Stack
 1. Express
