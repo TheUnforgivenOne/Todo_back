@@ -9,19 +9,19 @@ const getUser = (newCookie: string) => {
 };
 
 const useCookie = () => {
-  const [cookie, setCookie] = useState<string>(document.cookie);
   const [currentUser, setCurrentUser] = useState<string | undefined>(() =>
     getUser(document.cookie)
   );
 
   useEffect(() => {
+    let cookie = document.cookie;
     setInterval(() => {
       const newCookie = document.cookie;
       if (newCookie !== cookie) {
         try {
           setCurrentUser(getUser(newCookie));
         } finally {
-          setCookie(newCookie);
+          cookie = newCookie;
         }
       }
     }, 1000);
