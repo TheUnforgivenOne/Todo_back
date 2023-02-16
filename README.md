@@ -2,9 +2,10 @@
 Simple Todos app
 
 ## Features
-1. Authentification with tokens
+1. Authentification
 2. REST API
 3. Functional UI
+4. Attempt to build backend architecture
 
 ## Stack
 1. Express
